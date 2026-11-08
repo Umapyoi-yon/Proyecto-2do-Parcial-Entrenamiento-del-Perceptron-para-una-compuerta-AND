@@ -17,20 +17,20 @@ AND_DATASET: List[Tuple[int, int, int]] = [
 
 _ND = 10  # decimales internos para eliminar ruido de coma flotante
 
+"""Redondea a 10 decimales para evitar artefactos como 0.30000000000000004."""
 
 def _r(v: float) -> float:
-    """Redondea a 10 decimales para evitar artefactos como 0.30000000000000004."""
     return round(float(v) + 0.0, _ND)
 
-
+"""Función de activación tipo escalón: 1 si z >= 0, 0 en caso contrario."""
 def step(z: float) -> int:
-    """Función de activación tipo escalón: 1 si z >= 0, 0 en caso contrario."""
+    
     return 1 if z >= 0 else 0
 
-
+"""Registro completo de la evaluación de una muestra en una época."""
 @dataclass
 class StepRecord:
-    """Registro completo de la evaluación de una muestra en una época."""
+    
     epoch: int
     sample: int          # índice de la muestra (1..4)
     x1: float
@@ -49,10 +49,10 @@ class StepRecord:
     def as_dict(self) -> dict:
         return asdict(self)
 
-
+"""Resumen de una época."""
 @dataclass
 class EpochRecord:
-    """Resumen de una época."""
+    
     epoch: int
     w1: float
     w2: float
@@ -62,9 +62,9 @@ class EpochRecord:
     def as_dict(self) -> dict:
         return asdict(self)
 
-
+"""Perceptrón de 2 entradas con función escalón y regla delta."""
 class Perceptron:
-    """Perceptrón de 2 entradas con función escalón y regla delta."""
+    
 
     def __init__(self, w1: float = 0.0, w2: float = 0.0, b: float = 0.0,
                  eta: float = 0.1, max_epochs: int = 20):
@@ -89,9 +89,10 @@ class Perceptron:
         z = self.weighted_sum(x1, x2)
         return z, step(z)
 
+    """Entrena hasta convergencia (0 errores en una época) o hasta max_epochs."""
     # ------------------------------------------------------------- entrenamiento
     def fit(self, data: Sequence[Tuple[float, float, int]] = AND_DATASET) -> "Perceptron":
-        """Entrena hasta convergencia (0 errores en una época) o hasta max_epochs."""
+        
         self.w1, self.w2, self.b = self.w1_init, self.w2_init, self.b_init
         self.steps, self.epochs, self.converged = [], [], False
 

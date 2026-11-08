@@ -12,17 +12,17 @@ from perceptron import AND_DATASET, Perceptron
 
 st.set_page_config(page_title="Perceptrón Monocapa – AND", page_icon="🧠", layout="wide")
 
-
+"""Formato completo sin truncar (hasta 10 decimales, sin ceros sobrantes)."""
 # ------------------------------------------------------------------- utilidades
 def fmt(v: float) -> str:
-    """Formato completo sin truncar (hasta 10 decimales, sin ceros sobrantes)."""
+    
     s = f"{v:.10f}".rstrip("0").rstrip(".")
     return "0" if s in ("-0", "") else s
 
-
+"""REQ 1: esquema dinámico del perceptrón (los valores cambian con los parámetros)."""
 def network_svg(w1: float, w2: float, b: float,
                 x1=None, x2=None, z=None, y=None) -> str:
-    """REQ 1: esquema dinámico del perceptrón (los valores cambian con los parámetros)."""
+    
     def txt(v):
         return "?" if v is None else fmt(v)
     out_color = "#9aa5b1" if y is None else ("#2e9e5b" if y == 1 else "#d1495b")

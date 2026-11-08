@@ -24,9 +24,9 @@ from perceptron import Perceptron
 _FONT, _FONT_B = "Helvetica", "Helvetica-Bold"
 _UNICODE = False
 
-
+"""Intenta registrar DejaVu (soporta η, Σ, subíndices). Si no, usa Helvetica."""
 def _register_fonts() -> None:
-    """Intenta registrar DejaVu (soporta η, Σ, subíndices). Si no, usa Helvetica."""
+    
     global _FONT, _FONT_B, _UNICODE
     candidates = []
     try:
@@ -63,16 +63,16 @@ def _eta() -> str:
 def _sum() -> str:
     return "Σ" if _UNICODE else "suma"
 
-
+"""Número completo, sin truncar, sin ceros de relleno."""
 def _num(v: float) -> str:
-    """Número completo, sin truncar, sin ceros de relleno."""
+    
     s = f"{v:.10f}".rstrip("0").rstrip(".")
     return "0" if s in ("-0", "") else s
 
-
+"""Construye el PDF en memoria y devuelve sus bytes."""
 # ---------------------------------------------------------------------- reporte
 def generate_pdf(model: Perceptron, title: str = "Perceptrón Monocapa – Compuerta AND") -> bytes:
-    """Construye el PDF en memoria y devuelve sus bytes."""
+    
     buf = io.BytesIO()
     doc = SimpleDocTemplate(buf, pagesize=A4, leftMargin=1.8 * cm, rightMargin=1.8 * cm,
                             topMargin=1.8 * cm, bottomMargin=1.8 * cm, title=title)
